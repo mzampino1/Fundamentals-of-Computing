@@ -1,0 +1,29 @@
+From the user's perspective, my program is a text-menu based calculator
+that performs basic mathematical operations between two numbers.
+The user first selects which operation they want to complete by typing
+the corresponding integer. The user then enters the numbers to perform the operation on, 
+in the desired order. The program continues to prompt the user for new calculations 
+until the user types 0 as the operation integer to stop the program.
+
+In the program, most tasks are completed using functions. The function
+welcomeUser prints a welcome message, printMenu displays the text menu for the operations,
+and there is a function that calculates the result of each mathematical operation.
+The function printResult receives the operation integer and operands as arguments and uses a switch 
+statement to print the result by calling the appropriate operation function.
+If division by zero is attempted, then an error message is printed.
+In the main function, the welcome message is printed. Then, an infinite
+while loop with the condition 1 is used to reprompt the user until 0 is selected 
+as the operation integer, which triggers a break statement that terminates the program.
+If the user selects an appropriate operation integer, the program captures input
+for the first and second number, and otherwise, it prints an error message
+and reprompts the user. Finally, when all inputs are entered, the printResult function
+is called and the answer is printed.
+
+I verified that the output of the program is correct by first ensuring that
+the correct results were printed for each operation using simple numbers.
+I then tested decimal operands to ensure that the operations still worked properly, 
+comparing results to answers from a calculator.
+Then, I tested negative numbers and zero to see if they were handled appropriately.
+I also tested division by zero to ensure that the error message is printed.
+Finally, I tested inappropriate operation integers to ensure that the error message
+is printed, and I also made sure that typing zero as the operation integer exits the program.

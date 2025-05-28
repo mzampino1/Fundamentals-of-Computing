@@ -1,0 +1,71 @@
+Matthew Zampino
+
+For the user, my program for Part 2 first shows a welcome message,
+then asks for the startup file's name. If this file does not exist,
+an error message is printed and the program is stopped. If it does,
+the program then displays a text menu with five options: display
+the sayings currently in the database, enter a new saying into
+the database, list sayings that contain a given substring, save
+the sayings in the database into a new text file, and quit the
+program. Some of these options require more input from the user.
+If the user wants to enter a new saying into the database, the user
+will be prompted to enter that new saying.
+If the user wants to list the sayings that contain a given
+substring, the user will enter that substring, then the sayings
+are displayed. If the user wants to save the sayings into a new text
+file, the user will enter the name of this new text file. After the user
+completes an action, the text menu will reappear, and the user is
+reprompted until the "quit" option is selected.
+
+Internally, the program first welcomes the user and creates a two-dimensional
+array of characters to hold the strings. It also creates a variable
+called numSayings that keeps track of how many sayings are in the array.
+Then, the function startupAssign prompts the user for a startup file name using
+fgets, replacing the newline with a null character if necessary 
+(this newline removal is done throughout the program when fgets is used). 
+It then assigns the sayings in the startup file to the array using a while
+loop that terminates when the end of the file has been reached. This function
+returns the number of sayings added by the startup file, or if the
+startup file entered by the user does not exist, it returns -1. This
+prints an error message and terminates the program, as an if statement
+ensures that numSayings is at least 0 before continuing.
+
+After the sayings from the startup file are loaded into the array,
+the printMenu function displays a text menu listing possible
+actions and their corresponding numbers, prompting the user to enter the number
+of the desired action. This selection is stored into the int variable "selection,"
+and a switch statement performs different functions based on the selection,
+or prints an error message if an invalid selection integer is entered.
+The function getchar is used to remove the newline from the input buffer
+after scanf is used so that fgets can work properly.
+A while loop structure with a flag is used to reprompt the user until the
+fifth option, "quit," is selected.
+
+The function displaySayings is the first option, and this uses the puts
+function along with a for loop stopping before the numSayings index
+in order to display each saying. The function newSaying is the second
+option, which uses fgets to receive the new saying from the user and
+uses strcpy to put that new saying at the next index in the array, which
+is the index numSayings. The variable numSayings is incremented by 1 to 
+account for this new saying. The third option, substringSearch, 
+uses fgets to receive the substring from the user. 
+It then iterates through the sayings using a for loop, 
+printing a saying if strstr does not return NULL, since this indicates
+that the saying contains the substring. The fourth option, newFile,
+uses fgets to receive the new file name from the user, then uses
+fopen to create a file pointer that writes to a new file with that name.
+It then uses a for loop to iterate through the array, using fputs to
+write each saying to the file, and a newline character is printed 
+to the file after each saying.
+
+I verified the output of the program by testing it with the startup
+file from class. I ensured that the program terminates when a nonexistent
+startup file name is entered. I also ensured that the user is
+reprompted until quit is selected. I checked that the display function 
+prints all sayings from the startup file before anything else is added. 
+I made sure that if a new saying is entered into the database, it will
+also show up when all sayings are displayed. I also made sure that
+all sayings, including new ones, containing a given substring are listed.
+Finally, I added some sayings to the array, then saved the new database 
+into a new text file. I checked the contents of that text file to ensure 
+that it contained each saying on its own line, including the new ones.

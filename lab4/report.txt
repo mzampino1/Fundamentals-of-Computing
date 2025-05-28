@@ -1,0 +1,60 @@
+Matthew Zampino
+
+For the user, my program for Part 3 gives a text menu with five options 
+to display different Notre Dame football statistics. The menu is printed,
+and the user is prompted to type the integer corresponding to their desired
+action. The options are as follows: win/loss record for a given year, years
+with at least "n" losses or wins, years with at least "n" non-tie games played,
+and years with a win percentage greater than or equal to "n"%. There is also
+a quit option, and the program reprompts the user until quit is selected.
+The user is asked for some type of integer input for each option: year, number of 
+losses or wins, number of non-tie games played, or win percentage. The program 
+then displays the appropriate information to the user. If the user enters an
+invalid integer at any time, they are shown an error message and can
+re-enter the value.
+
+Internally, the program is structured using many functions. In main, welcomeUser
+prints a welcome message, and a while loop with a flag named "stop" is
+used to reprompt the user until "stop" becomes 1. The value returned by
+performOperation will be 1 if "exit" is selected, and 0 otherwise, so this
+value is assigned to "stop." The menuSelection function prints the text
+menu and returns the user's selection. This is passed to the performOperation
+function, which uses a switch statement to perform the appropriate action
+(or print an error message for an invalid selection). 
+
+Each action has its own function, from option1 to option5. These functions utilize
+the numYears function, which returns the size of the wins and losses arrays.
+This function allows the program to work if more data is added to the arrays.
+These functions also use an infinite while loop and break statement structure to
+print an error message and reprompt the user if an invalid integer is entered.
+
+Option 1 prints the wins and losses at the index corresponding to the year
+entered by the user. Options 2 through 5 print lists of years satisfying certain 
+criteria. A for loop is used to iterate through the years, testing the condition
+at each index. The printCnt variable is used to print 10 years per row, starting
+a new line after 10 years are printed. Options 2 and 3 print the years 
+corresponding to indices that have at least "n" wins or losses, where 
+"n" is entered by the user. Option 4 prints the years that have at least "n" 
+non-tie games played, where the number of non-tie games played is 
+determined by adding the number of wins and losses at an index.
+Option 5 prints the years that have win percentages of at least "n" percent,
+where only non-tie games are considered. The win percentage is calculated
+by casting the wins to float and dividing by the number of wins added to
+the number of losses at an index.
+
+To verify the output of the program, I first made sure that the selection
+menu works correctly, testing invalid integers and the "exit" option.
+Then, I tested each option, making sure that the user is reprompted
+and an error message is printed for invalid input integers. For option 1,
+I made sure that the proper win/loss record was printed for 1900 and 2024,
+since they are at each end of the range, and for some years in between.
+For options 2-5, I also made sure that 10 years were printed per row.
+For options 2 and 3, I tested 0 wins and losses to ensure that all years 
+are printed. I also tested the historical maximum values of 14 for wins and 
+8 for losses, along with a few values between. For option 4, I verified that 
+all years were printed for at least 0 non-tie games played, and that only 2024 
+was printed for a value of 16, along with a few values between. For option 5,
+I checked that all years were printed for a win percentage of at least 0%.
+I also checked that only undefeated years were printed for 100%, and that 
+2009 (a 6-6 season) was one of the years printed for at least 50%. 
+I also checked some other percentages in between.

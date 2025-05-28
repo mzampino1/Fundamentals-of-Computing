@@ -1,0 +1,104 @@
+Matthew Zampino
+Fundamentals of Computing - Lab 7 Part 2
+
+From the user's perspective, my program first asks for the name of the
+data file to be used, which is a csv file. Then, a menu with five options
+is displayed, with the user being asked to enter the integer corresponding
+to their selection. These options are: list data for all states, list a
+state's name, capital, and year of joining the union given its abbreviation 
+(case insensitive), list names of all states that joined the union during or 
+after a given year, list names of all states whose names contain a given 
+string (case insensitive), and quit. The user is reprompted with this 
+menu until "quit" is selected. 
+
+For the first option, the data for all the states is displayed in this
+format: abbreviation, name, capital, and year. For the second option,
+the user is asked to enter a two-character abbreviation. If the abbreviation is not
+found, an error message is displayed, and if it is found, the name and
+capital for that state are displayed. For the third option, the user is
+asked to enter the year, and the names of the states who joined the union
+during or after that year are displayed. For the fourth option, the user
+is asked to enter a string, and then a list of the names of states 
+whose names contain that string is displayed. If the user selects the 
+"quit" option, an exit message is printed and the program terminates.
+
+Internally, the program is split into three parts that are compiled and linked
+using a makefile. The main driver is usastates.c, the functions are 
+located in statesfunc.c, and the header file containing the typedef for
+the State struct along with the function prototypes is statesfunc.h. The
+general structure of the program involves an array of State variables,
+where State is a struct containing strings for abbreviation, name, and
+capital, along with an integer for the year. 
+
+In main, a constant integer variable is declared for the array size,
+and the State array states is declared. Then, a file pointer to the
+file name entered by the user is declared and initialized using the function
+openUserFile. After that, the integer variable numStates, which is the
+number of states in the data file, is initialized to the value returned
+by assignStateInfo, which also assigns the data from the file to the states
+array. Finally, a while loop with a flag is used to reprompt the user with
+the text menu and perform the user's selection until quit is selected.
+
+The function openUserFile assigns the name entered by the user to the
+string fileName, removing the newline character if necessary. It then
+uses fopen to create a file pointer that reads that file, and if
+the file exists, then that file pointer is returned by the function. 
+The function assignStateInfo uses an infinite while loop to iterate
+through the entire file, breaking out of the loop when the end of the file 
+is reached. It uses fgets to get each line in the file, removing the newline.
+Then, strtok is used to tokenize each line using comma as a delimiter,
+assigning the data to the appropriate attribute of the State variable.
+A counting variable is used to iterate through the array of states and
+keep track of how many State variables have been assigned to the array
+from the file.
+
+The function performUserSelection uses a switch statement to perform
+the function corresponding to the user's desired action. If the user
+selects quit, the function returns 1, which is then assigned to the 
+"stop" flag in main, ending the while loop. Otherwise, the function returns 0. 
+If the user does not enter a valid integer, an error message is displayed.
+
+The first option, listAllData, iterates through the states array,
+printing the abbreviation, name, capital, and year for each state. The
+second option, infoGivenAbbrev, first removes the newline from the
+input buffer using getchar. Then, it receives the two-character abbreviation 
+from the user using fgets. It then converts this to uppercase so that
+the input is case insensitive, since the abbreviations in the data file
+will be uppercase. The function iterates through the states array, and
+uses strcmp to check if the abbreviations match. If they match, the information
+for that state is printed and the function returns. If no match is found,
+the appropriate message is printed and the function ends.
+
+The third option, statesAfterYear, uses scanf to receive the year from
+the user. It then iterates through the states array, and if a state's
+year is greater than or equal to the year entered by the user, that
+state's name is printed. The fourth option, statesWithString, first
+removes the newline from the input buffer using getchar. It then uses
+fgets to get a string from the user and assign it to str, removing the newline 
+if necessary and converting it to all uppercase. Then, the function iterates 
+through the states array and uses strcpy to put the state's name inside of a 
+new variable called currentName. This is so that the comparison can be
+case insensitive, as currentName is converted to all uppercase without
+affecting the original name stored in the State variable. Then, strstr
+is used to check if str is contained in currentName, since if strstr does
+not return NULL, that means str is present in currentName. If str is
+in currentName, then the name of that state is printed.
+
+I verified that the output of the program is correct by first making
+sure an error message is printed when the user enters an invalid
+data file name. Then, I tested each individual option. For option one, 
+I made sure that all states were printed when listing all data by checking 
+that the first and last states were printed. For option two, I typed a
+valid state abbreviation to make sure the correct state's information was printed.
+I then typed a nonexistent state abbreviation to check that the error message was
+printed. I also made sure that it worked the same way regardless of capitalization.
+
+For option three, I made sure that the option worked properly by entering
+the year "1890," since that was the year that Wyoming joined the union.
+States that joined after 1890, along with states like Wyoming that joined
+in 1890, were printed. Therefore, option three worked correctly. For
+option four, I tested the string "new," since I knew that multiple states
+would contain that string, and it also ensured that the option was case
+insensitive. The appropriate states' names were printed, so I knew that
+the option worked properly. Finally, I made sure that the quit option
+successfully terminated the program.

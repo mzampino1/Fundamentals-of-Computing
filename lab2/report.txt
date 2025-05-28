@@ -1,0 +1,29 @@
+My program for part 3 displays a graph of the function 9*(0.5+sin(x)*cos(x))
+for x from 0.0 to 21.0. The x-axis runs vertically down the screen.
+The program first prints an introduction stating the function and range being displayed.
+It then prints the graph, with each hashtag representing 0.5, with the final hashtag being rounded up.
+Finally, the program tells the user the maximum and minimum y value achieved in this graph,
+along with the x values that these occurred at. The function
+and range are hard-coded in the program, so the user simply runs the program
+without inputting any values.
+
+Internally, the program begins by printing the introduction and headers
+with correct whitespace. Then, the variables for minimum and maximum
+x and y values are declared before the loop to give them the appropriate scope
+to be continuously updated and printed at the end.
+Then, a for loop iterates from 0 to 105 (inclusive), so that the
+entire range is graphed without the risk of floating-point roundoff error
+that would be present if an expression like "while(x != 21)" was used.
+In this loop, the x and y values are then calculated and printed.
+Also, a nested for loop is used to print the appropriate number of hashtags,
+with each hashtag representing a value of 0.5. The final hashtag is rounded up.
+This nested for loop increments j until it reaches the value of y, printing a hashtag each time.
+Finally, the program prints the X and Y values at the minimum and maximum
+of the graph.
+
+I verified the output of the program by comparing the program's graph to
+the graph of 9*(0.5+sin(x)cos(x)) on the Desmos graphing calculator.
+On Desmos, the maximum of the graph is 9, and the minimum is 0.
+My program had the same maximum and minimum values, and these extrema
+also occur at the same location as the Desmos graph. 
+Therefore, I know my program's graph is accurate.

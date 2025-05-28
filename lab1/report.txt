@@ -1,0 +1,14 @@
+My program is a distance calculator that uses the two-dimensional distance formula
+to calculate the distance between two points,
+where point 1 is represented by (x1, y1) and point 2 is represented by (x2, y2).
+The user is welcomed to the program, then prompted to enter the x1, y1, x2, and y2 values, 
+which can be positive or negative integers and decimals. 
+The program outputs the distance between the two points.
+
+The program declares the variables as doubles, then prints an introduction for the user.
+It then prompts the user to enter the values, assigning these values to their respective variables.
+Finally, the program computes the distance using the square root and power functions, then prints the value.
+
+I tested the program by entering integer values, decimal values, and negative values.
+I then manually calculated the distance using the formula and compared this to the result of the program.
+The program produces correct results in all cases, as long as the user inputs values correctly.

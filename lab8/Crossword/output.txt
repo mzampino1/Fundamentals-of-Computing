@@ -1,0 +1,58 @@
+Welcome to Anagram Crossword Puzzle Generator!
+
+Pass #1:
+Skipped word "TOOTH"
+Skipped word "TWERP"
+
+Pass #2:
+Skipped word "TOOTH"
+
+Pass #3:
+No words skipped.
+
+Solution:
+-----------------
+|...............|
+|...............|
+|...............|
+|...............|
+|...............|
+|...............|
+|.........N.....|
+|....BANANAS....|
+|.........M.....|
+|.......TWERP...|
+|.......O.......|
+|.......O.......|
+|.......T.......|
+|.......H.......|
+|...............|
+-----------------
+
+
+Crossword Puzzle:
+-----------------
+|###############|
+|###############|
+|###############|
+|###############|
+|###############|
+|###############|
+|######### #####|
+|####       ####|
+|######### #####|
+|#######     ###|
+|####### #######|
+|####### #######|
+|####### #######|
+|####### #######|
+|###############|
+-----------------
+
+Clues: coordinates, direction, anagram
+(coordinates of the start of a word are in row, column format starting at 0)
+
+ 7, 4 Across SNANABA
+ 6, 9 Down   ENAM
+ 9, 7 Across TWPER
+ 9, 7 Down   TOHOT

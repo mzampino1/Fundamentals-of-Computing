@@ -1,0 +1,120 @@
+Matthew Zampino
+
+My program simulates Conway's Game of Life in a 40x40 grid, where live cells
+are marked with an X and dead cells are marked with a blank space. The
+rules of the game are as follows: a dead cell with exactly 3 neighbors
+becomes live, and a live cell with exactly 2 or 3 neighbors survives.
+
+The user can interact with the program in two ways: interactive and batch
+mode. If the executable is run with no command line arguments, interactive
+mode is used, and if it is run with a command line argument (which is the
+name of a data file), batch mode is used. If more than one command line
+argument is entered by the user, an error message is shown and the program
+terminates.
+
+Interactive mode displays the empty board, then the user is prompted to enter
+a command. The command "a" followed by two integers adds a new live cell at 
+coordinates specified by those two integers. The command "r" followed by two
+integers removes a live cell at the given coordinates. The coordinates specify
+row and column, starting at 0, meaning that (0,0) would be the top left point.
+The command "n" applies the rules of the game and advances the simulation to
+the next iteration. The command "p" plays the game endlessly, updating the
+board at a rate of 10 frames per second. The command "q" quits the program.
+If the user selects "a," "r," or "n," they are shown the new board and 
+reprompted to enter another command. If the user enters an invalid command,
+they are reprompted to enter another one.
+
+Batch mode reads a data file, specified by the user as a command line argument.
+This file consists of a sequence of "a" commands followed by a "p" command.
+The program will then play the game endlessly based on the starting board
+created by the commands in the data file.
+
+Internally, the program is divided into a header file, main program, and 
+functions file. A Makefile is used to compile and link the program.
+In the main program, a two-dimensional array of characters with 40 rows
+and 40 columns is declared (the macro "BOARD_SIZE" is used to represent this value of 40).
+This array, currentBoard, is then initialized to contain all blank spaces (' ').
+Then, an if/else if/else structure is used to run certain blocks of code
+depending on how many command line arguments are entered. If no command
+line argument is entered, then interactive mode runs. If one such argument 
+is entered, batch mode runs. If more than one is entered, an error message
+is printed and the program terminates with an error code of 1.
+
+In interactive mode, a character variable called operation is declared, then a
+while loop with a "stop" flag is used to reprompt the user until the quit 
+option is selected. The character entered by the user is put into the variable
+operation, and getchar is used to clear the newline from the input buffer.
+Then, the value returned by interactiveOperation is put into the "stop" flag,
+as this function returns 1 when "quit" is selected by the user.
+
+The interactiveOperation function receives the board and operation as arguments,
+and it uses a switch statement to perform the appropriate function based on
+the value of the argument. If "a" is selected, the coordinates are received from
+input and, if they are valid coordinates, the addLiveCell function makes the
+cell at that point live. If "r" is selected, the coordinates are similarly
+received from input and the removeLiveCell function makes the cell at that point
+dead. If "q" is selected, the program prints an exit message and interactiveOperation
+returns 1 rather than 0 in order to end the main program's while loop.
+
+If "n" is selected, the function nextIteration is called, which applies
+the rules of the game to the board, then the new board is printed. This function uses 
+a temporary board called tempBoard to store the future value of each cell without 
+modifying the original board. The function copyBoard assigns the values in currentBoard
+to this tempBoard array. Using a variable called neighborCnt and a nested for loop
+structure, nextIteration iterates through the board and applies the rules of
+the game (dead cells with three neighbors become alive; live cells with 2 or 3
+neighbors survive while all others die). The values on the new board are assigned
+to tempBoard. At the end of the nextIteration function, copyBoard is used to
+copy the contents of tempBoard into currentBoard.
+
+The countNeighbors function determines the neighborCnt for each cell, and it
+receives the currentBoard, row, and column as arguments. This function uses
+a nested for loop structure to check all eight locations surrounding each
+cell. It does this by using the iterator variables relRow and relCol, which
+range from -1 to 1, adding and subtracting 1 from the coordinates of the
+given cell to check every neighbor. In order to prevent the cell itself
+from being counted as a neighbor, an if statement is used to ensure that the
+coordinates of the neighbor being checked are not equal to the coordinates
+of the given cell. In order to account for cases where a cell is located against
+the wall of the board, a neighbor cell is only checked if its coordinates are
+valid (between 0 and BOARD_SIZE - 1). If a neighbor cell is live, then the variable 
+cnt is incremented by 1. Finally, the function returns this count so that it
+can be used in the nextIteration function to apply the rules of the game.
+
+If "p" is selected, then the playInfinitely function is called, which contains
+an infinite while loop that calls the nextIteration function, prints the board,
+then calls usleep(100000) in order to print the animation at a rate of 10 
+frames per second.
+
+For batch mode, a file pointer is initialized using fopen, which reads
+the file name given as a command line argument. If that file pointer is
+null, then an error message is printed and the program returns an error code
+of 2. Then, a while loop is used along with fscanf in order to capture the
+letter of the operation in the file. The function batchOperation then receives
+the board, operation, and file pointer. In batchOperation, if the operation is
+an "a" command, fscanf receives the two coordinates and calls addLiveCell.
+The function fgetc is then used to skip the newline in the file. If the operation
+is p, then the file is closed and the function playInfinitely is called. It is
+assumed that the data file is properly formatted, but if there is not a p
+statement, the while loop will end and the program will terminate.
+
+I verified that the output of my program was correct by first testing each
+invididual command in interactive mode, ensuring that error messages are
+printed and the user is reprompted to enter another command when an invalid command 
+or invalid coordinates are entered. I manually created a glider using the
+commands from the glider.txt file to ensure that the game works correctly
+in interactive mode. Then, I tested batch mode, making sure that there is an
+error if too many command line arguments are entered. 
+
+When testing batch mode, I first used glider.txt to ensure that it 
+worked as intended. Then, I found 4 different patterns on conwaylife.com/wiki,
+and put them into my "myscene.txt" file. My still life pattern is the block, 
+which is a 2x2 square that stays the same and is located in the 
+bottom right. My oscillator is the blinker, which is a 3 block line 
+that oscillates between being horizontal and vertical. My moving object 
+is the lightweight spaceship, which is a group of cells that moves 
+to the left across the board before bouncing off the wall and moving up
+and to the right. My explosion is the die hard, which would normally
+vanish after 130 generations, but due to its interaction with the spaceship
+actually transforms into a static object called the beehive. These patterns
+behave as expected, showing that my algorithm works correctly.
